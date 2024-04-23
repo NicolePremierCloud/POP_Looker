@@ -19,4 +19,3 @@ explore: top_events {}
 explore: landing_pages {}
 
 explore: exit_pages {}
-
