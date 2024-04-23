@@ -26,15 +26,16 @@ view: pop_arbitrary {
     view_label: "_PoP"
     hidden: yes
     type: number
-    sql: DATEDIFF('day',  {% date_start first_period_filter %}, ${date_time}) ;;
+    sql: date_diff({% date_start first_period_filter %}, CAST(${date_time} AS TIMESTAMP),DAY) ;;
+
   }
 
   dimension: days_from_start_second {
     view_label: "_PoP"
     hidden: yes
     type: number
-    sql: DATEDIFF('day',  {% date_start second_period_filter %}, ${date_time}) ;;
-  }
+    sql: date_diff({% date_start second_period_filter %}, CAST(${date_time} AS TIMESTAMP),DAY) ;;
+      }
 
 ## ------------------ DIMENSIONS TO PLOT ------------------ ##
 
@@ -63,9 +64,9 @@ view: pop_arbitrary {
     type: string
     sql:
             CASE
-                WHEN {% condition first_period_filter %}${date_time} {% endcondition %}
+                WHEN {% condition first_period_filter %} CAST(${date_time} AS TIMESTAMP) {% endcondition %}
                 THEN 'First Period'
-                WHEN {% condition second_period_filter %}${date_time} {% endcondition %}
+                WHEN {% condition second_period_filter %} CAST(${date_time} AS TIMESTAMP) {% endcondition %}
                 THEN 'Second Period'
                 END ;;
   }
